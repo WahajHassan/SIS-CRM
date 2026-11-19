@@ -1,0 +1,51 @@
+*.log
+.DS_Store
+Thumbs.db
+.phpactor.json
+.phpunit.result.cache
+/.phpunit.cache
+/.fleet
+/.idea
+/.nova
+/.vscode
+/.zed
+/.claude
+/auth.json
+Homestead.json
+Homestead.yaml
+
+# Secrets / environment (never push)
+.env
+.env.*
+
+# Dependencies & builds
+/node_modules
+/vendor
+/public/build
+/public/hot
+/public/storage
+/bootstrap/cache/*.php
+composer.phar
+composer.lock
+package-lock.json
+
+# Runtime data
+/storage/
+*.sqlite
+*.sqlite3
+
+# Database schema & seed data (withheld - repo is not runnable without these)
+/database/migrations/
+/database/seeders/
+/database/data/
+/app/Console/Commands/SeedDemoMonth.php
+
+# Deployment, backups, archives, scratch
+/_backup_*/
+/_deploy_build/
+/deploy-tools/
+/scratch/
+*.zip
+fix_urls.php
+DEPLOYMENT.md
+DEPLOYMENT-SUBFOLDER.md

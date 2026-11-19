@@ -1,0 +1,37 @@
+# Laravel lives in this folder but must be served from public/.
+# This sends every request into public/ without exposing .env, app/ or vendor/.
+#
+# NOTE: this layout only works when the app owns its own domain or subdomain
+# (the old crm.systematicitsolutions.com setup). It CANNOT be used in a
+# subfolder: Laravel then resolves its base URL to "" and sees the path as
+# "/crm/login", which matches no route and makes asset() point at the parent
+# site. For systematicitsolutions.com/crm use deploy-tools/build-crm-deploy.py,
+# which produces the flat layout that a subfolder needs.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteCond %{REQUEST_URI} !^/public
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+# Never serve dotfiles or the environment file, whatever happens above
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+<Files ".env">
+    Require all denied
+</Files>
+
+# Bypass LiteSpeed Server Cache
+<IfModule LiteSpeed>
+    RewriteEngine On
+    RewriteRule .* - [E=Cache-Control:no-cache]
+</IfModule>
+
+# Prevent browser/proxy caching for dynamic pages
+<IfModule mod_headers.c>
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires 0
+</IfModule>
